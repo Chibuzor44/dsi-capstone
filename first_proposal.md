@@ -44,6 +44,6 @@ Purpose: Begin to organize actual capstone project.
 <p><i>The reviews will have slangs, spelling errors, and abbreviations which can make similar sentences dissimilar.</i></p>
 
 #### 8. What is the next thing you need to work on?
-  <p><i>Understanding the data?</i></p>
-   <p><i>Building a minimum viable product?</i></p>
-   <p><i>Gauging how much signal might be in the data?</i></p>
+  <p><i>Understanding the data</i></p>
+   <p><i>Building a minimum viable product</i></p>
+   <p><i>Gauging how much signal might be in the data</i></p>
