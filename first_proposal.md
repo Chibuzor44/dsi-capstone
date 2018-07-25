@@ -1,4 +1,4 @@
-Final Proposal Specifications
+### Final Proposal Specifications - Review text analysis
 Purpose: Begin to organize actual capstone project.
 
 #### 1. What are you trying to do?
