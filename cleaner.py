@@ -11,6 +11,24 @@ def clean_stem(corpus, tokenizer, st, sw):
     return cleaned
 
 
+
+def show_topics(vt, terms, length = 13):
+    """
+    This function prints out the topics and most associated words of the topic
+    :param vt: V transpose matrix
+    :param terms: list of vocabulary containing feature names
+    :param length: number of words in a topic to be returned
+    :return: prints topics and list of terms
+    """
+    topic_list = []
+    for i, topic in enumerate(vt, 1):
+        topic_term = sorted(zip(topic, terms), key=lambda x: x[0], reverse=True)[:length]
+        topics = [x[1] for x in topic_term]
+        topic_list.extend(topics)
+        print("Topic {}: {}".format(i, topics))
+
+
+
 if __name__ == "__main__":
     from nltk.tokenize import RegexpTokenizer
     from nltk.stem.wordnet import WordNetLemmatizer
