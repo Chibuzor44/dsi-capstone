@@ -1,11 +1,11 @@
 
 
-def clean_stem(corpus, tokenizer, st, sw):
+def clean_stem(corpus, tokenizer, lemma, sw):
     """
     This functions takes a corpus and return a list of tokenized,
     and stemmed documents with symbols and numbers stripped
     """
-    cleaned = [" ".join([st.stem(word) for word in tokenizer.tokenize(doc)
+    cleaned = [" ".join([lemma.lemmatize(word) for word in tokenizer.tokenize(doc)
             if word.isdigit() == False and word not in sw])
             for doc in corpus]
     return cleaned
