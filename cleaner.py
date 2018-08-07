@@ -5,7 +5,7 @@ def clean_stem(corpus, tokenizer, lemma, sw):
     This functions takes a corpus and return a list of tokenized,
     and stemmed documents with symbols and numbers stripped
     """
-    cleaned = [" ".join([lemma.lemmatize(word) for word in tokenizer.tokenize(doc)
+    cleaned = [" ".join([lemma.lemmatize(word.lower()) for word in tokenizer.tokenize(doc)
             if word.isdigit() == False and word not in sw])
             for doc in corpus]
     return cleaned
@@ -22,7 +22,7 @@ def show_topics(vt, terms, length = 13):
     """
     topic_list = []
     for i, topic in enumerate(vt, 1):
-        topic_term = sorted(zip(topic, terms), key=lambda x: x[0], reverse=True)[:length]
+        topic_term = sorted(zip(topic, terms), key=lambda x: x[0], reverse=False)[:length]
         topics = [x[1] for x in topic_term]
         topic_list.extend(topics)
         print("Topic {}: {}".format(i, topics))
