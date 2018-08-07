@@ -20,12 +20,14 @@ def show_topics(vt, terms, length = 13):
     :param length: number of words in a topic to be returned
     :return: prints topics and list of terms
     """
-    topic_list = []
-    for i, topic in enumerate(vt, 1):
-        topic_term = sorted(zip(topic, terms), key=lambda x: x[0], reverse=False)[:length]
-        topics = [x[1] for x in topic_term]
-        topic_list.extend(topics)
-        print("Topic {}: {}".format(i, topics))
+    for i, beta in enumerate(vt, 1):
+        pos_sort = sorted(zip(terms, beta), key=lambda x: x[1], reverse=True)[:length]
+        neg_sort = sorted(zip(terms, beta), key=lambda x: x[1], reverse=False)[:length]
+
+        pos_term = sorted({k:v for k,v in pos_sort}.items(), key=lambda x: x[1], reverse=True)
+        neg_term = sorted({k:v for k,v in neg_sort}.items(), key=lambda x: x[1], reverse=False)
+
+    return pos_term, neg_term
 
 
 
