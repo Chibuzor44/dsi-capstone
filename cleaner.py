@@ -1,3 +1,5 @@
+import numpy as np
+from sklearn.metrics import confusion_matrix
 
 
 def clean_stem(corpus, tokenizer, lemma, sw):
@@ -5,8 +7,8 @@ def clean_stem(corpus, tokenizer, lemma, sw):
     This functions takes a corpus and return a list of tokenized,
     and stemmed documents with symbols and numbers stripped
     """
-    cleaned = [" ".join([lemma.lemmatize(word.lower()) for word in tokenizer.tokenize(doc)
-            if word.isdigit() == False and word not in sw])
+    cleaned = [[lemma.lemmatize(word.lower()) for word in tokenizer.tokenize(doc)
+            if word.isdigit() == False and word not in sw]
             for doc in corpus]
     return cleaned
 
@@ -30,6 +32,27 @@ def show_topics(vt, terms, length = 13):
                           key=lambda x: x[1], reverse=False)
 
     return pos_term, neg_term
+
+
+def metrics(df=None,y_test=None, y_predict=None):
+    """
+    This function calculates evaluation metrics for two arrays of true
+    and predicted values or from spark dataframe with tp,tn,fp,fn calculated.
+    ie matrix, recall precision, and accuracy.
+    :param df: spark dataframe
+    :param y_test: array of true prediction
+    :param y_predict: array of predicted values
+    :return: confusion matrix, recall, precision,  and accuracy
+    """
+    if df:
+        tp, tn, fp, fn = df.collect()[0]
+    else:
+        tn, fp, fn, tp = confusion_matrix(y_test, y_predict).ravel()
+    matrix = np.array([[tp, fp], [fn, tn]])
+    recall = tp/(tp+fn)
+    precision = tp/(fp+tp)
+    accuracy = (tp+tn)/(tn+fp+fn+tp)
+    return matrix, recall, precision, accuracy
 
 
 
