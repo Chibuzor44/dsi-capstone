@@ -31,7 +31,6 @@ def show_topics(vt, terms, length = 13):
 
 
 
-
 if __name__ == "__main__":
     from nltk.tokenize import RegexpTokenizer
     from nltk.stem.wordnet import WordNetLemmatizer
