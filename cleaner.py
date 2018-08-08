@@ -24,8 +24,10 @@ def show_topics(vt, terms, length = 13):
         pos_sort = sorted(zip(terms, beta), key=lambda x: x[1], reverse=True)[:length]
         neg_sort = sorted(zip(terms, beta), key=lambda x: x[1], reverse=False)[:length]
 
-        pos_term = sorted({k:v for k,v in pos_sort}.items(), key=lambda x: x[1], reverse=True)
-        neg_term = sorted({k:v for k,v in neg_sort}.items(), key=lambda x: x[1], reverse=False)
+        pos_term = sorted({k:v for k,v in pos_sort}.items(),
+                          key=lambda x: x[1], reverse=True)
+        neg_term = sorted({k:v for k,v in neg_sort}.items(),
+                          key=lambda x: x[1], reverse=False)
 
     return pos_term, neg_term
 
