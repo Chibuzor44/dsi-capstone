@@ -73,39 +73,6 @@ class ReviewClassifier:
 
 
 
-
-# def vectorizer(corpus, max_df=0.95, min_df=2, stop_words='english'):
-#     """
-#     Converts corpus to term frequency inverse document frequency matrix
-#     :param corpus: list of strings of documents
-#     :param max_df: ignore terms that have a document frequency strictly higher than the given threshold
-#     :param min_df: ignore terms that have a document frequency strictly lower than the given threshold
-#     :param stop_words: check_stop_list and the appropriate stop list is returned
-#     :return: sparse matrix and 1-D array of vocabulary vector
-#     """
-#     tfidf_vectorizer = TfidfVectorizer(max_df=max_df, min_df=min_df,
-#                                        stop_words=stop_words)
-
-#     tfidf = tfidf_vectorizer.fit_transform(corpus)
-#     terms = tfidf_vectorizer.get_feature_names()
-#     X = tfidf.toarray()
-#     return X, terms
-
-
-def train_test_splits(X, y, test_size, random_state=0):
-    """
-    :param X: 2-dimensional feature matrix
-    :param y: 1-dimensional target array
-    :param test_size: ratio of data testset size
-    :param random_state: random seed
-    :return: 2-dimensional array of X_train, X_test, y_train, y_test
-    """
-    X_train, X_test, y_train, \
-            y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
-    return X_train, X_test, y_train, y_test
-
-
-
 def main(df, tokenizer, lemma, sw, random_state, test_size, length=15, state = "Given Data"):
 
     corpus = df["text"].values #list of reviews
