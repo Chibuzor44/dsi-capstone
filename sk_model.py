@@ -50,7 +50,7 @@ class ReviewClassifier:
         :return: 2-D arrays confusion matrix, floats of recall, precision and accuracy
         """
         y_pred = self.predict(X_test)
-        tp, tn, fp, fn = metrics(y_true, y_pred)
+        tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
         matrix = np.array([[tp, fp], [fn, tn]])
         recall = tp / (tp + fn)
         precision = tp / (fp + tp)
@@ -100,27 +100,6 @@ def train_test_splits(X, y, test_size, random_state=0):
             y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return X_train, X_test, y_train, y_test
 
-
-def metrics(y_test, y_pred):
-    """
-    computes tp, tn, fp, fn
-    :param y_test: 1-dimensional array of predicted classes
-    :param y_pred: 1-dimensional array of target classes
-    :return: tp, tn, fp, fn
-    """
-    tp, tn, fp, fn = 0,0,0,0
-    for x,y in zip(y_test, y_pred):
-        if x == y:
-            if x > 3:
-                tp+=1
-            else:
-                tn+=1
-        elif x != y:
-            if y>3:
-                fp+=1
-            elif y<3:
-                fn+1
-    return tp, tn, fp, fn
 
 
 # def main():
