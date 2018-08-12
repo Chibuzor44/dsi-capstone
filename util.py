@@ -1,4 +1,7 @@
 import numpy as np
+import pandas as pd
+from nltk import bigrams
+from collections import defaultdict
 from sklearn.metrics import confusion_matrix
 import re
 
@@ -63,6 +66,34 @@ def metrics(df=None,y_test=None, y_predict=None):
 
 
 
+def service_section(corpus, terms):
+    """
+    This function returns sections of service an list of words used to 
+    describe these sections
+    :param corpus: list of reviews
+    :param terms: descriptive adjectives
+    :return: dataframe, list of tuples of words and list of
+            words describing them
+    """
+    term = [word[0] for word in terms]
+    dic = defaultdict(list)
+    desc = np.array(term)
+    for doc in corpus:
+        grams = bigrams(doc.split())
+        for tup in list(grams):
+            if tup[0] in term:
+                indx = term.index(tup[0])
+                if tup[1] in dic and len(tup[1]) > 3:
+                    dic[tup[1]].append(indx)
+                else:
+                    dic[tup[1]] = [indx]
+
+    lst = sorted({k: len(desc[[v]]) for k,v in dic.items()}.items(),
+                     key=lambda x: x[1], reverse=True)
+    lst_tup = sorted({k: desc[[v]] for k,v in dic.items()}.items(),
+                     key=lambda x: len(x[1]), reverse=True)
+    df_service = pd.DataFrame(lst, columns=["Section", "Level of experience"]).iloc[:4,:]
+    return df_service, lst_tup
 
 
 
