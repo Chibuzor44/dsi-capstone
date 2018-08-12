@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 *.xml
 sage_yelp-Copy1.ipynb
+*.pickle
