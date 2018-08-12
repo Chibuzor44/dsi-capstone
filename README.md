@@ -1,6 +1,6 @@
 # Galvanize Data Science Immersive Capstone (In Progress)
 
-## Reviews aspect sentiment analysis to measure customers satisfaction
+## Restaurants review aspect sentiment analysis to measure customers satisfaction
 <br>
 
 #### Overview
@@ -23,7 +23,7 @@ I used three sets of data from <a href="https://www.yelp.com/dataset/challenge">
   <ul>
   <li>Business dataset that describes all sorts of businesses that provide services to the general public. The            dataset has 174,567 records from ---- to -----.</li>
   <li>Review dataset is a records customer reviews of differnt business in the business data collected from ---- to ----. The dataset is holds 5,261,669 records.</li>
-  <li>User dataset holds the record of users who have given reviews and and what businesses they have given reviews for. The         user data has 1,326,101 records</li>
+  <li>User dataset holds the record of users who have given reviews and and what businesses they have given reviews for. The         user data has 1,326,101 records from ---- to ----.</li>
   </ul>
 
 #### Methodology
