@@ -54,12 +54,7 @@ class ReviewClassifier:
         :return: 2-D arrays confusion matrix, floats of recall, precision and accuracy
         """
         y_pred = self.predict(X_test)
-        tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-        matrix = np.array([[tp, fp], [fn, tn]])
-        recall = tp / (tp + fn)
-        precision = tp / (fp + tp)
-        accuracy = (tp + tn) / (tn + fp + fn + tp)
-        return matrix, recall, precision, accuracy
+        return util.metrics(y_test=y_true, y_predict=y_pred)
 
 
     def feature_importance(self, length = 13):
