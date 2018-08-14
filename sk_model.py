@@ -68,12 +68,17 @@ class ReviewClassifier:
 
 
 
-def main(df, tokenizer, lemma, sw, random_state, test_size, length=15, state = "Given Data"):
-
+def main(df, random_state, test_size, first_star, second_star, length=15, state = "Given Data"):
+    if state:
+        df = df[df["state"]==state]
+    df = df[df.stars_rev.isin([first_star, second_star])]
+    df = df[["text", "stars_rev"]].astype(str)
+    
+    df = util.to_binary(df, str(first_star), str(second_star))
     corpus = df["text"].values #list of reviews
     y = df["stars_rev"].values #target
 
-    cleaned = util.clean_stem(corpus, tokenizer, lemma, sw)
+    cleaned = util.clean_stem(corpus)
     
     X_train, X_test, y_train, \
             y_test = train_test_split(cleaned, y, test_size=test_size,
@@ -91,12 +96,12 @@ def main(df, tokenizer, lemma, sw, random_state, test_size, length=15, state = "
     print("Recall: {}%".format(round(recall * 100, 2)))
     print("Precision: {}%".format(round(precision * 100, 2)))
     print("Accuracy: {}%".format(round(accuracy * 100, 2)))
-    print("\n","\n","\n")
-
-    pos_terms, neg_terms = model.feature_importance(length)
-    print("Words customers who gave 5-star reviews used to describe their experience")
-    print("-------------------------------------------------------------------------\n")
-    print(pos_terms)
-    print("\n Words customers who gave 1-star reviews used to describe their experience")
-    print("-------------------------------------------------------------------------\n")
-    print(neg_terms)
+#     print("\n","\n","\n")
+    return model
+#     pos_terms, neg_terms = model.feature_importance(length)
+#     print("Words customers who gave 5-star reviews used to describe their experience")
+#     print("-------------------------------------------------------------------------\n")
+#     print(pos_terms)
+#     print("\n Words customers who gave 1-star reviews used to describe their experience")
+#     print("-------------------------------------------------------------------------\n")
+#     print(neg_terms)

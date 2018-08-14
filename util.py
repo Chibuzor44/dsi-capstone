@@ -1,16 +1,28 @@
 import numpy as np
 import pandas as pd
+import nltk
 from nltk import bigrams
 from collections import defaultdict
 from sklearn.metrics import confusion_matrix
+from nltk.tokenize import RegexpTokenizer
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.corpus import stopwords
 import re
 
+nltk.download('stopwords')
+nltk.download('wordnet')
+sw = set(stopwords.words("english"))
+tokenizer = RegexpTokenizer("[\w']+")
+lemma = WordNetLemmatizer()
 
-def clean_stem(corpus, tokenizer, lemma, sw):
+def clean_stem(corpus):
     """
     This functions takes a corpus and return a list of tokenized,
     and stemmed documents with symbols and numbers stripped
     """
+    sw = set(stopwords.words("english"))
+    tokenizer = RegexpTokenizer("[\w']+")
+    lemma = WordNetLemmatizer()
     cleaned = [" ".join([lemma.lemmatize(word.lower()) for word in tokenizer.tokenize(doc)
             if regex(word) == False and word.lower() not in sw])
             for doc in corpus]
@@ -97,6 +109,42 @@ def service_section(corpus, terms):
 
 
 
+def to_binary(df, first_star, second_star):
+    label = {"stars_rev": {first_star: 0, second_star: 1}}
+    df.replace(label, inplace=True)
+    return df
+
+
+
+def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
+    #Selecting restaurant by restaurant ID
+    unique_id = pd.unique(df["business_id"])
+    if bus_name:
+        df_rest = df[["bus_name","text", "stars_rev"]][df["bus_name"]==bus_name]
+    else:
+        df_rest = df[["bus_name","text", "stars_rev"]][df["business_id"]==unique_id[indx]]
+    
+    print("Restaurant Name: {} \n".format(df_rest["bus_name"].iloc[0]))
+    
+    df_rest = df_rest[df_rest.stars_rev.isin([first_star, second_star])]
+    df_rest = df_rest[["text", "stars_rev"]].astype(str)
+    df_rest = to_binary(df_rest, str(first_star), str(second_star))
+    y_rest = df_rest["stars_rev"].values
+    rest_corpus = clean_stem(df_rest["text"].values)
+    print("Size of corpus: {}".format(len(rest_corpus)), "\n")
+    pos_term, neg_term = model.feature_importance(15)
+    matrix, recall, precision, accuracy = model.metrics_eval(rest_corpus, y_rest)
+    print("Recall: {}%".format(round(recall, 2)))
+    print("Precision: {}%".format(round(precision, 2)))
+    print("Accuracy: {}%".format(round(accuracy*100, 2)))
+    df_neg, lst_neg = service_section(rest_corpus, neg_term)
+    df_pos, lst_pos = service_section(rest_corpus, pos_term)
+    print("\n",lst_neg[:15], "\n")
+    print("\n", lst_pos[:15], "\n")
+    df_neg.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
+    df_pos.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
+
+    
 if __name__ == "__main__":
     from nltk.tokenize import RegexpTokenizer
     from nltk.stem.wordnet import WordNetLemmatizer
