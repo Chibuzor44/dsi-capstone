@@ -1,0 +1,17 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - NLP</title>
+        {% else %}
+        <title>Fraud Analyzer</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Fraud zone:
+            <a href={{ url_for('index') }}>Home</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
