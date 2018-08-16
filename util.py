@@ -144,6 +144,31 @@ def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
     df_neg.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
     df_pos.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
 
+
+def display(model, df, first_star, second_star, state=None, bus_name=None):
+    # Selecting restaurant by restaurant ID
+
+    df_rest = df[["bus_name", "text", "stars_rev", "state"]]
+    df_rest = df_rest[(df_rest["state"] == state) & (df_rest["bus_name"] == bus_name)]
+
+    name = "Restaurant Name: " + bus_name
+
+    df_rest = df_rest[df_rest.stars_rev.isin([first_star, second_star])]
+    df_rest = df_rest[["text", "stars_rev"]].astype(str)
+    df_rest = to_binary(df_rest, str(first_star), str(second_star))
+    y_rest = df_rest["stars_rev"].values
+    rest_corpus = clean_stem(df_rest["text"].values)
+
+    size = "Size of corpus: {}".format(len(rest_corpus))
+    pos_term, neg_term = model.feature_importance(15)
+    matrix, recall, precision, accuracy = model.metrics_eval(rest_corpus, y_rest)
+    Recall = "Recall: {}%".format(round(recall, 2))
+    Precision = "Precision: {}%".format(round(precision, 2))
+    Accuracy = "Accuracy: {}%".format(round(accuracy * 100, 2))
+    df_neg, lst_neg = service_section(rest_corpus, neg_term)
+    df_pos, lst_pos = service_section(rest_corpus, pos_term)
+    return name, size, Recall, Precision, Accuracy, lst_neg[:15], lst_pos[:15]
+
     
 if __name__ == "__main__":
     from nltk.tokenize import RegexpTokenizer
