@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Restaurant Reviews Analysis</h1>
+<form action="/predict" method='POST' >
+  Restaurant's Name:<br>
+  <input type="text" name="restaurant" value="Showmars Fort Mill-Hwy 521"><br>
+  State:<br>
+  <input type="text" name="state" value="SC"><br>
+  Lower rating:<input type="text" name="first_star"><br>
+  Upper rating:<input type="text" name="second_star"><br>
+  <input type="submit" value="Submit">
+</form>
+{% endblock %}

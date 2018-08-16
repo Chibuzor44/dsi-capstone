@@ -3,3 +3,6 @@ __pycache__/
 .ipynb_checkpoints/
 *.pyc
 *.xml
+sage_yelp-Copy1.ipynb
+*.pickle
+*.iml
