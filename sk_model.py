@@ -68,7 +68,7 @@ class ReviewClassifier:
 
 
 
-def main(df, random_state, test_size, first_star, second_star, length=15, state = "Given Data"):
+def main(df, random_state, test_size, first_star, second_star, state = "Given Data"):
     if state:
         df = df[df["state"]==state]
     df = df[df.stars_rev.isin([first_star, second_star])]
