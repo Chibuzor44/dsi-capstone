@@ -1,13 +1,93 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <style>
+            #wrapper {
+                        height: 200px;
+                        width: 50%;
+                    }
+            #left { flex: 0 0 50%; }
+            #right { flex: 1; }
+            #wide { flex: 0 1}
+            table {
+                border-collapse: collapse;
+            }
 
-{% block content %}
-<h1>Results</h1>
-<h3>{{ name }}</h3>
-<h3>{{ size }}</h3>
-<h3>{{ recall }}</h3>
-<h3>{{ precision }}</h3>
-<h3>{{ acc }}</h3>
-<h3>{{ neg }}</h3>
-<h3>{{ pos }}</h3>
+            #table, td, th {
+                border: 1px solid black;
+            }
+        </style>
+    <title>NLP on reviews!</title>
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css" rel="stylesheet">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.css" rel="stylesheet">
 
-{% endblock %}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.10.min.js"></script>
+  </head>
+  <body>
+    <h1>Negative aspects</h1>
+    <div id="wrapper">
+        <div id="left">
+            <h3>Negative customer experience</h3>
+
+            {{ neg_the_div|safe }}
+            {{ neg_the_script|safe }}
+        </div>
+        <div id="right">
+            <h3>Positive customer experience</h3>
+            {{ pos_the_div|safe }}
+            {{ pos_the_script|safe }}
+        </div>
+        <div id="right">
+            <table class="table">
+              <tr>
+                <th>Negative Aspect</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>{{ neg_asp1 }}</td>
+                <td>{{ neg_desc1 }}</td>
+              </tr>
+              <tr>
+                <td>{{ neg_asp2 }}</td>
+                <td>{{ neg_desc2 }}</td>
+              </tr>
+                <tr>
+                <td>{{ neg_asp3 }}</td>
+                <td>{{ neg_desc3 }}</td>
+              </tr>
+              <tr>
+                <td>{{ neg_asp4 }}</td>
+                <td>{{ neg_desc4 }}</td>
+              </tr>
+            </table>
+        </div>
+        <div id="wide">
+            <table>
+              <tr>
+                <th>Positive Aspect</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>{{ pos_asp1 }}</td>
+                <td>{{ pos_desc1 }}</td>
+              </tr>
+              <tr>
+                <td>{{ pos_asp2 }}</td>
+                <td>{{ pos_desc2 }}</td>
+              </tr>
+                <tr>
+                <td>{{ pos_asp3 }}</td>
+                <td>{{ pos_desc3 }}</td>
+              </tr>
+              <tr>
+                <td>{{ pos_asp4 }}</td>
+                <td>{{ pos_desc4 }}</td>
+              </tr>
+            </table>
+        </div>
+
+    </div>
+  </body>
+</html>
+

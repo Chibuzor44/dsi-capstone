@@ -104,7 +104,7 @@ def service_section(corpus, terms):
                      key=lambda x: x[1], reverse=True)
     lst_tup = sorted({k: desc[[v]] for k,v in dic.items()}.items(),
                      key=lambda x: len(x[1]), reverse=True)
-    df_service = pd.DataFrame(lst, columns=["Section", "Level of experience"]).iloc[:4,:]
+    df_service = pd.DataFrame(lst, columns=["Aspect", "Level of experience"]).iloc[:4,:]
     return df_service, lst_tup
 
 
@@ -141,8 +141,8 @@ def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
     df_pos, lst_pos = service_section(rest_corpus, pos_term)
     print("\n",lst_neg[:15], "\n")
     print("\n", lst_pos[:15], "\n")
-    df_neg.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
-    df_pos.plot("Section", "Level of experience", kind="barh", figsize=(14,7))
+    df_neg.plot("Aspect", "Level of experience", kind="barh", figsize=(14,7))
+    df_pos.plot("Aspect", "Level of experience", kind="barh", figsize=(14,7))
 
 
 def display(model, df, first_star, second_star, state=None, bus_name=None):
@@ -167,7 +167,7 @@ def display(model, df, first_star, second_star, state=None, bus_name=None):
     Accuracy = "Accuracy: {}%".format(round(accuracy * 100, 2))
     df_neg, lst_neg = service_section(rest_corpus, neg_term)
     df_pos, lst_pos = service_section(rest_corpus, pos_term)
-    return name, size, Recall, Precision, Accuracy, lst_neg[:15], lst_pos[:15]
+    return df_pos, df_neg, name, size, Recall, Precision, Accuracy, lst_neg[:15], lst_pos[:15]
 
     
 if __name__ == "__main__":

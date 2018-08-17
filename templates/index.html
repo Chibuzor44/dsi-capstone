@@ -1,14 +1,40 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>
+        <h1>Restaurant Reviews Analysis</h1>
+      </title>
+    <style>
+      #form{
+           position:fixed;
+           top:50%;
+           left:50%;
+           width:50%;
+        }
 
-{% block content %}
-<h1>Restaurant Reviews Analysis</h1>
-<form action="/predict" method='POST' >
-  Restaurant's Name:<br>
-  <input type="text" name="restaurant" value="Showmars Fort Mill-Hwy 521"><br>
-  State:<br>
-  <input type="text" name="state" value="SC"><br>
-  Lower rating:<input type="text" name="first_star"><br>
-  Upper rating:<input type="text" name="second_star"><br>
-  <input type="submit" value="Submit">
-</form>
-{% endblock %}
+    </style>
+  </head>
+  <body>
+      <form action="/predict" method='POST' id="form">
+        Restaurant's Name:<input type="text" name="restaurant" value="Showmars Fort Mill-Hwy 521"><br>
+        State:<input type="text" name="state" value="SC"><br>
+        First rating:
+        <select name="star1">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+       Second rating:
+        <select name="star2">
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select><br>
+        <input type="submit" value="Submit">
+      </form>
+  </body>
+</html>
+
+
