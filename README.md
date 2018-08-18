@@ -1,6 +1,6 @@
 # Galvanize Data Science Immersive Capstone (In Progress)
 
-## Restaurants review aspect sentiment analysis to measure customers satisfaction
+## Quantifying customers experience with NLP
 <br>
 
 #### Overview
