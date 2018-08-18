@@ -2,20 +2,19 @@
 <html>
   <head>
       <style>
-            #wrapper {
-                        height: 200px;
-                        width: 50%;
-                    }
-            #left { flex: 0 0 50%; }
-            #right { flex: 1; }
-            #wide { flex: 0 1}
-            table {
-                border-collapse: collapse;
-            }
-
-            #table, td, th {
-                border: 1px solid black;
-            }
+            html, body { height:100%; margin:0; padding:0 }
+            div { position:fixed; width:50%; height:50% }
+            #NW { top:0;   left:0; padding-right: 5%; background:rgb(250, 219, 216)  }
+            #NE { top:0;   left:50%; background:rgb(253, 242, 233)    }
+            #SW { top:50%; left:0; padding-right: 5%;  background:rgb(169, 223, 191)   }
+            #SE { top:50%; left:50%; background:rgb(209, 242, 235)     }
+            div {
+                  /* ... */
+                  padding:1em;
+                  box-sizing:border-box;
+                  -moz-box-sizing:border-box;
+                  -webkit-box-sizing:border-box;
+                }
         </style>
     <title>NLP on reviews!</title>
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.10.min.css" rel="stylesheet">
@@ -26,19 +25,18 @@
   </head>
   <body>
     <h1>Negative aspects</h1>
-    <div id="wrapper">
-        <div id="left">
-            <h3>Negative customer experience</h3>
+    <div id="NW">
+            <h3>Restaurant name: {{bus_name}}</h3>
 
             {{ neg_the_div|safe }}
             {{ neg_the_script|safe }}
         </div>
-        <div id="right">
-            <h3>Positive customer experience</h3>
+        <<div id="SW">
+            <h3>Restaurant name: {{bus_name}}</h3>
             {{ pos_the_div|safe }}
             {{ pos_the_script|safe }}
         </div>
-        <div id="right">
+        <div id="NE">
             <table class="table">
               <tr>
                 <th>Negative Aspect</th>
@@ -62,7 +60,7 @@
               </tr>
             </table>
         </div>
-        <div id="wide">
+        <div id="SE">
             <table>
               <tr>
                 <th>Positive Aspect</th>
@@ -87,7 +85,5 @@
             </table>
         </div>
 
-    </div>
   </body>
 </html>
-

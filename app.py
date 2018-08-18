@@ -44,7 +44,7 @@ def predict():
     if star1 == 4 and star2 == 5:
         affix = "45"
     if affix:
-        with open("../../../downloads/models"+affix+".pickle", "rb") as f:
+        with open("../break_week/models/model"+affix+".pickle", "rb") as f:
             models = pickle.load(f)
     db = client.yelp
     df = pd.DataFrame(list(db.review.find({"bus_name": bus_name, "state":state})))
@@ -52,12 +52,12 @@ def predict():
     df_pos, df_neg, name, size, Recall, Precision, Accuracy, lst_neg, \
                     lst_pos = display(models, df, star1, star2, state=state, bus_name=bus_name)
 
-    hover = create_hover_tool()
+    # hover = create_hover_tool()
     data_neg = {"Aspect": list(df_neg["Aspect"]), "Level of experience": list(df_neg["Level of experience"])}
     data_pos = {"Aspect": list(df_pos["Aspect"]), "Level of experience": list(df_pos["Level of experience"])}
 
-    plot_neg = create_bar_chart(data_neg, "Negative customer experience", "Aspect", "Level of experience", hover)
-    plot_pos = create_bar_chart(data_pos, "Positive customer experience", "Aspect", "Level of experience", hover)
+    plot_neg = create_bar_chart(data_neg, "Negative customer experience", "Aspect", "Level of experience")
+    plot_pos = create_bar_chart(data_pos, "Positive customer experience", "Aspect", "Level of experience")
 
     script_neg, div_neg = components(plot_neg)
     script_pos, div_pos = components(plot_pos)
@@ -68,7 +68,7 @@ def predict():
         pos_desc1, pos_desc2, pos_desc3, pos_desc4 = lst_pos[0][1], lst_pos[1][1], lst_pos[2][1], lst_pos[3][1]
     else:
         return render_template('index.html', title='Home')
-    return render_template("predict.html", neg_the_div=div_neg, neg_the_script=script_neg,
+    return render_template("predict.html", bus_name=bus_name, neg_the_div=div_neg, neg_the_script=script_neg,
                            pos_the_div=div_pos, pos_the_script=script_pos,
                            neg_asp1=neg_asp1, neg_asp2=neg_asp2, neg_asp3=neg_asp3, neg_asp4=neg_asp4,
                            neg_desc1=neg_desc1, neg_desc2=neg_desc2, neg_desc3=neg_desc3, neg_desc4=neg_desc4,
