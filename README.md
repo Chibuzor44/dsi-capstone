@@ -33,9 +33,9 @@ In other to get anticipated results out of this modelling, it should answer the 
 <p>
 Three sets of data was collected from <a href="https://www.yelp.com/dataset/challenge">yelp</a>, which is a publicly available dataset. The datasets are as follows:
   <ul>
-  <li>Business dataset that describes all sorts of businesses that provide services to the general public. The            dataset has 174,567 records.</li>
-  <li>Review dataset is a records customer reviews of differnt business in the business dataset collected. The dataset holds 5,261,669 records.</li>
-  <li>User dataset holds the record of users who have given reviews and businesses they reviewed. The user data has 1,326,101 records.</li>
+  <li>Business dataset that describes all sorts of businesses that provide services to the general public. The            dataset has 174,567 records and a size of 145.2 MB.</li>
+  <li>Review dataset is a records customer reviews of differnt business in the business dataset collected. The dataset holds 5,261,669 records and has a size of 4.21 GB.</li>
+  <li>User dataset holds the record of users who have given reviews and businesses they reviewed. The user data has 1,326,101 records and a size of 1.9 GB.</li>
   </ul>
   The datasets were stored in AWS s3 bucket, and due to the size of the data, I was unable to do the computation on a local machine. I used AWS SageMaker instance running on EC2 and Elastic File Storage(EFS) for most of the data munging and model training.
   
@@ -56,6 +56,7 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
   </li>
 </ul>
 </p>
+
 ##### Models
 <p>
   To answer the questions posed in the overview, I used Logistic Regression to model the data by 1-star vs all and 5-star vs all.
@@ -74,6 +75,7 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
 <p>
   
 </p>
+
 #### Conclusion
 <p>
 Every business is interested in improving their service delivery to keep customers happy all the time. Any business will continue to grow with service improvements but only if they know the areas of improvement. This method can be applied not only to restaurants, but any business that users leave reviews about the business' performance.
