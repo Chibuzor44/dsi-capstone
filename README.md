@@ -2,10 +2,12 @@
 
 ## Galvanize Data Science Immersive Capstone (In Progress)
 <br>
+
 #### Motivation
 <p>
-  A study from Cornell University conducted in 2005 <a href="https://www.researchgate.net/publication/237835565_Why_Restaurants_Fail"><i>Why restaurants fail</i><a/> found that 26.16 percent of independent restaurants failed during the first year of operation. Another recent study in 2014 <a href="https://www.researchgate.net/publication/267695784_Only_the_Bad_Die_Young_Restaurant_Mortality_in_the_Western_US"><i>Only the Bad Die Young: Restaurant Mortality in the Western US</i></a> also found that the restaurant franchize have actually improved a bit to 17 percent of independently owned full-service restaurant startups failing in their first year. One of the factors that affect retaurants from being successful is the inability to identify aspects of their services impacting customers satisfaction.
+A study from Cornell University conducted in 2005 <a href="https://www.researchgate.net/publication/237835565_Why_Restaurants_Fail"><i>Why restaurants fail</i><a/> found that 26.16 percent of independent restaurants failed during the first year of operation. Another recent study in 2014 <a href="https://www.researchgate.net/publication/267695784_Only_the_Bad_Die_Young_Restaurant_Mortality_in_the_Western_US"><i>Only the Bad Die Young: Restaurant Mortality in the Western US</i></a> also found that the restaurant franchize have actually improved a bit to 17 percent of independently owned full-service restaurant startups failing in their first year. One of the factors that affect retaurants from being successful is the inability to identify aspects of their services impacting customers satisfaction.
 </p>
+  
 #### Overview
 <p>
 The availability of online review web services have made it relatively easy for restaurant patrons to get information about a retaurant before deciding to dinning there. Yelp is a popular review online service for restaurants and other businesses. This presents an opportunity for these restaurants to use these feedbacks to measure their customer satisfaction performance and improve on poorly performed aspects of their services. Most restaurants rely on star ratings to measure customer satisfaction, but star rating does not necessarily reveal the cause of a customer's satisfaction/dissatisfaction. This project focuses on using natural language processing (NLP) to analyze user reviews text to extract aspects of restaurants services that impact its customers.<br>
@@ -38,6 +40,7 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
   The datasets were stored in AWS s3 bucket, and due to the size of the data, I was unable to do the computation on a local machine. I used AWS SageMaker instance running on EC2 and Elastic File Storage(EFS) for most of the data munging and model training.
   
 #### Methodology
+
 ##### Data Cleaning
 <p>
   <ul>
