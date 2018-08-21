@@ -68,7 +68,18 @@ class ReviewClassifier:
 
 
 
-def main(df, random_state, test_size, first_star, second_star, length=15, state = "Given Data"):
+def main(df, random_state, test_size, first_star, second_star, state = "Given Data"):
+    """
+    Runs the complete cycle of and builds a model. Takes a dataframe, 
+    tokenizes, clean, vectorize and return model
+    :param df: Pandas dataframe
+    :param random_state: int
+    :param test_size: int, split size for test
+    :param first_star: int, first star rating
+    :param second_star: int, second star rating
+    :param state: string, state initials
+    :return: logistic regression model object
+    """
     if state:
         df = df[df["state"]==state]
     df = df[df.stars_rev.isin([first_star, second_star])]
@@ -89,19 +100,11 @@ def main(df, random_state, test_size, first_star, second_star, length=15, state 
     
     #Estimating metrics
     matrix, recall, precision, accuracy = model.metrics_eval(X_test, y_test)
-    print("Results for " + state, "\n","\n","\n")
     print("Number of reviews: {}".format(len(corpus)), "\n")
     print("Confusion matrix")
     print(matrix, "\n")
     print("Recall: {}%".format(round(recall * 100, 2)))
     print("Precision: {}%".format(round(precision * 100, 2)))
     print("Accuracy: {}%".format(round(accuracy * 100, 2)))
-#     print("\n","\n","\n")
+
     return model
-#     pos_terms, neg_terms = model.feature_importance(length)
-#     print("Words customers who gave 5-star reviews used to describe their experience")
-#     print("-------------------------------------------------------------------------\n")
-#     print(pos_terms)
-#     print("\n Words customers who gave 1-star reviews used to describe their experience")
-#     print("-------------------------------------------------------------------------\n")
-#     print(neg_terms)

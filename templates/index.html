@@ -1,14 +1,59 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>
+        NLP on Reviews
+      </title>
+      <link rel= "stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+      body {
+     background-image: url('https://images.unsplash.com/photo-1519893578517-3252b77e8fdf?ixlib=rb-0.3.5&s=542c0fc76f8c43caa82a58d1d655d280&auto=format&fit=crop&w=1649&q=80');
 
-{% block content %}
-<h1>Restaurant Reviews Analysis</h1>
-<form action="/predict" method='POST' >
-  Restaurant's Name:<br>
-  <input type="text" name="restaurant" value="Showmars Fort Mill-Hwy 521"><br>
-  State:<br>
-  <input type="text" name="state" value="SC"><br>
-  Lower rating:<input type="text" name="first_star"><br>
-  Upper rating:<input type="text" name="second_star"><br>
-  <input type="submit" value="Submit">
-</form>
-{% endblock %}
+       }
+       form{padding-top:2% }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+
+        <form action="/predict" method='POST' >
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationServer01">Restaurant's Name:</label>
+                  <input type="text" class="form-control is-valid" id="validationServer01" name="restaurant" value="The Old Fashioned" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="custom-select d-block my-3">First rating:</label>
+                  <select type="text" class="form-control is-valid" name="star1" required>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationServer03">State</label>
+                  <input type="text" class="form-control is-invalid" id="validationServer03" name="state" value="WI" required><br>
+
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="custom-select d-block my-3">First rating:</label>
+                  <select type="text" class="form-control is-valid" name="star2" required>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                  </select>
+                  </div>
+                </div>
+
+              <button class="btn btn-primary" type="submit">Submit Query</button>
+            </form>
+        </div>
+  </body>
+</html>
+
+
