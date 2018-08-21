@@ -1,13 +1,13 @@
 import pickle
 import random
 import pandas as pd
-from util import display
+from util import display, sort
 from flask import Flask, request
 from flask import render_template, flash, redirect, url_for
 from bokeh.models import (HoverTool, FactorRange, Plot, LinearAxis, Grid, Range1d)
 from bokeh.models.glyphs import VBar
 from bokeh.plotting import figure
-# from bokeh.charts import Bar
+from collections import  Counter
 from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
 from flask import Flask, render_template
@@ -53,8 +53,14 @@ def predict():
                     lst_pos = display(models, df, star1, star2, state=state, bus_name=bus_name)
 
     # hover = create_hover_tool()
-    data_neg = {"Aspect": list(df_neg["Aspect"]), "Level of experience": list(df_neg["Level of experience"])}
-    data_pos = {"Aspect": list(df_pos["Aspect"]), "Level of experience": list(df_pos["Level of experience"])}
+    asp_lst = list(df_neg["Aspect"])
+    neg_words, pos_words = [],[]
+    for neg, pos in zip(df_neg["Level of experience"],df_pos["Level of experience"]):
+        neg_words.append(neg)
+        pos_words.append(pos)
+
+    data_neg = {"Aspect": asp_lst, "Level of experience": neg_words}
+    data_pos = {"Aspect": asp_lst, "Level of experience": pos_words}
 
     plot_neg = create_bar_chart(data_neg, "Negative customer experience", "Aspect", "Level of experience")
     plot_pos = create_bar_chart(data_pos, "Positive customer experience", "Aspect", "Level of experience")
@@ -63,11 +69,11 @@ def predict():
     script_pos, div_pos = components(plot_pos)
     if len(lst_pos) >= 4 and len(lst_neg) >= 4:
         neg_asp1, neg_asp2,neg_asp3,neg_asp4 = lst_neg[0][0], lst_neg[1][0], lst_neg[2][0], lst_neg[3][0]
-        neg_desc1, neg_desc2, neg_desc3, neg_desc4 = lst_neg[0][1], lst_neg[1][1], lst_neg[2][1], lst_neg[3][1]
+        neg_desc1, neg_desc2, neg_desc3, neg_desc4 = sort(lst_neg[0][1]), sort(lst_neg[1][1]), sort(lst_neg[2][1]), sort(lst_neg[3][1])
         pos_asp1, pos_asp2, pos_asp3, pos_asp4 = lst_pos[0][0], lst_pos[1][0], lst_pos[2][0], lst_pos[3][0]
-        pos_desc1, pos_desc2, pos_desc3, pos_desc4 = lst_pos[0][1], lst_pos[1][1], lst_pos[2][1], lst_pos[3][1]
+        pos_desc1, pos_desc2, pos_desc3, pos_desc4 = sort(lst_pos[0][1]), sort(lst_pos[1][1]), sort(lst_pos[2][1]), sort(lst_pos[3][1])
     else:
-        return render_template('index.html', title='Home')
+        return render_template("index.html", title="Home")
     return render_template("predict.html", bus_name=bus_name, neg_the_div=div_neg, neg_the_script=script_neg,
                            pos_the_div=div_pos, pos_the_script=script_pos,
                            neg_asp1=neg_asp1, neg_asp2=neg_asp2, neg_asp3=neg_asp3, neg_asp4=neg_asp4,
@@ -79,7 +85,7 @@ def predict():
 
 
 def create_hover_tool():
-    """Generates the HTML for the Bokeh's hover data tool on our graph."""
+    """Generates the HTML for the Bokeh's hover data tool on the graph."""
     hover_html = """
           <div>
             <span class="hover-tooltip">$x</span>
@@ -95,7 +101,7 @@ def create_hover_tool():
 
 
 def create_bar_chart(data, title, x_name, y_name, hover_tool=None,
-                     width=1500, height=500):
+                     width=1500, height=700):
     """Creates a bar chart plot with the exact styling for the centcom
        dashboard. Pass in data as a dictionary, desired plot title,
        name of x axis, y axis and the hover tool HTML.
