@@ -1,5 +1,9 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from collections import Counter
+import pickle
 import nltk
 from nltk import bigrams
 from collections import defaultdict
@@ -100,14 +104,25 @@ def service_section(corpus, terms):
                 else:
                     dic[tup[1]] = [indx]
 
-    lst = sorted({k: len(desc[[v]]) for k,v in dic.items()}.items(),
-                     key=lambda x: x[1], reverse=True)
-    lst_tup = sorted({k: desc[[v]] for k,v in dic.items()}.items(),
+    with open("../break_week/aspect.pickle", "rb") as f:
+        aspect = pickle.load(f)
+
+    asp = {"Food":[], "Service":[], "Location":[], "Drink":[], "Cost":[]}
+    for k,v in dic.items():
+        for key, val in aspect.items():
+            if k in val:
+                asp[key].extend(v)
+
+    lst = sorted({k: len(desc[[v]]) for k,v in asp.items()}.items(),
+                 key=lambda x: x[1], reverse=True)
+    lst_tup = sorted({k: dict(Counter(desc[[v]])) for k,v in asp.items()}.items(),
                      key=lambda x: len(x[1]), reverse=True)
-    df_service = pd.DataFrame(lst, columns=["Aspect", "Level of experience"]).iloc[:4,:]
+    df_service = pd.DataFrame(lst, columns=["Aspect", "Level of experience"])
     return df_service, lst_tup
 
 
+def sort(dic):
+    return sorted(dic.items(), key=lambda x: x[1], reverse=True)
 
 def to_binary(df, first_star, second_star):
     label = {"stars_rev": {first_star: 0, second_star: 1}}
@@ -117,7 +132,7 @@ def to_binary(df, first_star, second_star):
 
 
 def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
-    #Selecting restaurant by restaurant ID
+    # Selecting restaurant by restaurant ID
     unique_id = pd.unique(df["business_id"])
     if bus_name:
         df_rest = df[["bus_name","text", "stars_rev"]][df["bus_name"]==bus_name]
@@ -139,10 +154,14 @@ def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
     print("Accuracy: {}%".format(round(accuracy*100, 2)))
     df_neg, lst_neg = service_section(rest_corpus, neg_term)
     df_pos, lst_pos = service_section(rest_corpus, pos_term)
-    print("\n",lst_neg[:15], "\n")
-    print("\n", lst_pos[:15], "\n")
-    df_neg.plot("Aspect", "Level of experience", kind="barh", figsize=(14,7))
-    df_pos.plot("Aspect", "Level of experience", kind="barh", figsize=(14,7))
+    print("\n",lst_neg, "\n")
+    print("\n", lst_pos, "\n")
+    sns.barplot(x="Aspect", y="Level of experience", data=df_neg)
+    plt.title("Negative experience")
+    plt.show()
+    plt.title("Positive experience")
+    sns.barplot(x="Aspect", y="Level of experience", data=df_pos)
+    plt.show()
 
 
 def display(model, df, first_star, second_star, state=None, bus_name=None):
@@ -169,4 +188,4 @@ def display(model, df, first_star, second_star, state=None, bus_name=None):
     df_pos, lst_pos = service_section(rest_corpus, pos_term)
     return df_pos, df_neg, name, size, Recall, Precision, Accuracy, lst_neg[:15], lst_pos[:15]
 
-    
+
