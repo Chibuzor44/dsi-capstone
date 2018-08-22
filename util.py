@@ -15,9 +15,6 @@ import re
 
 nltk.download('stopwords')
 nltk.download('wordnet')
-sw = set(stopwords.words("english"))
-tokenizer = RegexpTokenizer("[\w']+")
-lemma = WordNetLemmatizer()
 
 def clean_stem(corpus):
     """
@@ -113,8 +110,7 @@ def service_section(corpus, terms):
             if k in val:
                 asp[key].extend(v)
 
-    lst = sorted({k: len(desc[[v]]) for k,v in asp.items()}.items(),
-                 key=lambda x: x[1], reverse=True)
+    lst = sort({k: len(desc[[v]]) for k,v in asp.items()})
     lst_tup = sorted({k: dict(Counter(desc[[v]])) for k,v in asp.items()}.items(),
                      key=lambda x: len(x[1]), reverse=True)
     df_service = pd.DataFrame(lst, columns=["Aspect", "Level of experience"])
@@ -122,9 +118,17 @@ def service_section(corpus, terms):
 
 
 def sort(dic):
+    """Returns a sorted list of tuples of key and value pair"""
     return sorted(dic.items(), key=lambda x: x[1], reverse=True)
 
 def to_binary(df, first_star, second_star):
+    """
+    Returns a dataframe with stars_rev col being 0s and 1s
+    :param df: dataframe
+    :param first_star: int (star rating)
+    :param second_star: int (star rating)
+    :return: dataframe
+    """
     label = {"stars_rev": {first_star: 0, second_star: 1}}
     df.replace(label, inplace=True)
     return df
@@ -132,7 +136,18 @@ def to_binary(df, first_star, second_star):
 
 
 def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
-    # Selecting restaurant by restaurant ID
+    """
+    Prints a list of tuples of key and value pair negative and positive
+    aspects, bar charts of each, and confusion matrix. The key is the aspect and value
+    is a dictionary words describing the aspect and the count of the words.
+    :param model: trained logistic regression model object
+    :param df: dataframe
+    :param first_star: star rating
+    :param second_star: star rating
+    :param indx: int
+    :param bus_name: Name of the restaurant
+    :return:
+    """
     unique_id = pd.unique(df["business_id"])
     if bus_name:
         df_rest = df[["bus_name","text", "stars_rev"]][df["bus_name"]==bus_name]
@@ -165,7 +180,18 @@ def vary_ratings(model, df, first_star, second_star, indx=1, bus_name=None):
 
 
 def display(model, df, first_star, second_star, state=None, bus_name=None):
-    # Selecting restaurant by restaurant ID
+    """
+    Returns positive and negative aspect dataframe, restaurant name, number of reviews,
+    Recall, Precision, Accuracy, list of tuples of aspects as key and value as dict of
+    words describing them.
+    :param model:
+    :param df:
+    :param first_star:
+    :param second_star:
+    :param state:
+    :param bus_name:
+    :return:
+    """
 
     df_rest = df[["bus_name", "text", "stars_rev", "state"]]
     df_rest = df_rest[(df_rest["state"] == state) & (df_rest["bus_name"] == bus_name)]
