@@ -59,10 +59,10 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
  <figcaption>Figure 2</figcaption>
   </li><br>
   
-  <li>Step 2. Tokenizer, Lemmatize, Regex. <br>
+  <li>Step 2: Tokenizer, Lemmatize, Regex. <br>
     I used two functions <i>clean_stem(corpus)</i> and <i>regex(word)</i> in <a href="util.py">util.py</a> to tokenize each review into list of words, remove stop words as they do not communicate important information about the context of the review and remove strings that are digits or have digits in them and lemmatize the words. This returns a corpus of documents ready to be vectorized.  
   </li>
-  <li>Step 3. Term Frequency Inverse Document Frequency (TFIDF). <br>
+  <li>Step 3: Term Frequency Inverse Document Frequency (TFIDF). <br>
   Before building a model, the reviews have to be transformed into numerical representation. I used the TFIDF to turn the corpus into word vectors. 
   </li>
 </ul>
