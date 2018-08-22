@@ -85,7 +85,7 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
 ### Results
 <p>
   
-  <img align="top-left" src="images/model_acc.png" height="400" width="400"/>
+  <img align="top-left" src="images/model_acc.png" />
   <img align="bottom" src="images/acc.png" height="700" width="700"/>
   <figcaption>Figure 3</figcaption>
   <br>
