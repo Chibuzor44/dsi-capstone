@@ -1,4 +1,3 @@
-<br>
 # Quantifying customers dining experience with NLP
 
 ##### Galvanize Data Science Immersive Capstone (In Progress)
@@ -29,9 +28,9 @@ In other to get anticipated results out of this modelling, it should answer the 
     </li>
   </ul>
 
-  <img align="left" src="images/meal1.png" height="200" width="200"/> 
-  <img align="left" src="images/meal2.png" height="200" width="200"/> 
-  <img align="left" src="images/meal3.png" height="200" width="200"/>
+  <img align="left" src="images/meal1.png" height="30%" width="30%"/> 
+  <img align="left" src="images/meal2.png" height="30%" width="30%"/> 
+  <img align="left" src="images/meal3.png" height="30%" width="30%"/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <figcaption>Figure 1</figcaption>
 <br/>
@@ -55,12 +54,13 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
   <ul>
     <li>Step 1: Joining data sources. <br>
     The The three categories of data had some feature name that were nnot unique to it, and had to be renamed. The datasets had reviews records from both the US and other countries and had to be filtered to retain reviews for restaurants in US states alone and all three tables were joined on *business_id and user_id*. Exploring the data further shows 95.91 percent of the US data came from five states. I used the data for the five states for modelling and validation and the rest of the 4.09 percent of the data for testing the web app which I will discuss in a later section. This process can be seen in <a href="sage_yelp.ipynb">sage_yelp.ipynb</a>.
-<p><img src="images/states.png" height="400" width="400"/></p>
-<figcaption>Figure 2</figcaption>
+
+ <img src="images/states.png"/></p>
+ <figcaption>Figure 2</figcaption>
   </li><br>
   
   <li>Step 2. Tokenizer, Lemmatize, Regex. <br>
-    I used two functions * clean_stem(corpus) * and *regex(word)* in <a href="util.py">util.py</a> to tokenize each review into list of words, remove stop words as they do not communicate important information about the context of the review and remove strings that are digits or have digits in them and lemmatize the words. This returns a corpus of documents ready to be vectorized.  
+    I used two functions <i>clean_stem(corpus)</i> and <i>regex(word)</i> in <a href="util.py">util.py</a> to tokenize each review into list of words, remove stop words as they do not communicate important information about the context of the review and remove strings that are digits or have digits in them and lemmatize the words. This returns a corpus of documents ready to be vectorized.  
   </li>
   <li>Step 3. Term Frequency Inverse Document Frequency (TFIDF). <br>
   Before building a model, the reviews have to be transformed into numerical representation. I used the TFIDF to turn the corpus into word vectors. 
@@ -85,18 +85,18 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
 ### Results
 <p>
   
-  <img align="top-left" src="images/model_acc.png" />
-  <img align="bottom" src="images/acc.png" height="700" width="700"/>
+  <img align="top-left" src="images/model_acc.png" height="50%" width="50%"/>
+  <img align="bottom" src="images/acc.png"/>
   <figcaption>Figure 3</figcaption>
   <br>
   The model behaves different per combination of rating. As the gap widens between ratings the accuracy inreases but decreases as the the gap tightens. Model_15 has highest accuracy, while Model_12 and Model_45 have the lowest accuracy.<br>
   <br>
 
-    <img src="images/star_15_45.png" height="700" width="700"/>
-    <figcaption>Figure 4</figcaption>
+  <img src="images/star_15_45.png" />
+  <figcaption>Figure 4</figcaption>
 <br>
   It is interesting to see that there is a distinct polarity in the connotation of adjectives used by customers to express their experience in the Model_15 on the left of figure 4, the wrds convey strong negative experience (ie. worst, horible, terible etc) and stong positive experience (ie. delicious, amazing great, etc). This is expected as people as usual comment amongst dinners. However, for Model_45 on the right of figure 4, strong postive adjective are used to describe positivity of the experience but the negative words convey a rather softer connotation and are more contextual in description (ie. lacked, deducted, slow etc which suggest that there are a few details in the aspect of service that prevents the restaurant being upto a five star rating).
-  <img src="images/star_13_35.png" height="700" width="700"/>
+  <img src="images/star_13_35.png" />
   <figcaption>Figure 5</figcaption>
   <br>
   Model_13 on the left of figure 5 shows the polarity in positivity like Model_15, this is interesting because with this model alone it can be assumed that the 3-star rating should be a five star rating since it bears hallmarks of a Model_15 but it turns out that, customers who gave had this much positive experience also had negative experience as seen in Model_35 on the right of figure 5. Model_13 extracts the positive experience of a 3-star retaurant, while Model_35 extracts the positivity of the 3-star restaurant.
