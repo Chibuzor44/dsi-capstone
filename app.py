@@ -1,5 +1,4 @@
 import pickle
-import random
 import pandas as pd
 from util import display, sort
 from flask import Flask, request
@@ -7,7 +6,6 @@ from flask import render_template, flash, redirect, url_for
 from bokeh.models import (HoverTool, FactorRange, Plot, LinearAxis, Grid, Range1d)
 from bokeh.models.glyphs import VBar
 from bokeh.plotting import figure
-from collections import  Counter
 from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
 from flask import Flask, render_template
@@ -23,11 +21,14 @@ def index():
 
 @app.route('/predict', methods=['POST'] )
 def predict():
+    # input from web
     state = str(request.form['state'])
     bus_name = str(request.form['restaurant'])
     star1 = str(request.form['star1'])
     star2 = str(request.form['star2'])
     star1, star2 = int(star1), int(star2)
+
+    # selecting model to load depending on star selection from web app
     affix = None
     if star1 == 1 and star2 == 2:
         affix = "12"
@@ -46,22 +47,27 @@ def predict():
     if affix:
         with open("../break_week/models/model"+affix+".pickle", "rb") as f:
             models = pickle.load(f)
+
+    # loading data from mongoDB using restaurant name and state
     db = client.yelp
     df = pd.DataFrame(list(db.review.find({"bus_name": bus_name, "state":state})))
 
+    # calling display function
     df_pos, df_neg, name, size, Recall, Precision, Accuracy, lst_neg, \
                     lst_pos = display(models, df, star1, star2, state=state, bus_name=bus_name)
 
-    # hover = create_hover_tool()
+    # creating a list of count of words describing each aspect
     asp_lst = list(df_neg["Aspect"])
     neg_words, pos_words = [],[]
     for neg, pos in zip(df_neg["Level of experience"],df_pos["Level of experience"]):
         neg_words.append(neg)
         pos_words.append(pos)
 
+    # using created list to make a dict of aspects
     data_neg = {"Aspect": asp_lst, "Level of experience": neg_words}
     data_pos = {"Aspect": asp_lst, "Level of experience": pos_words}
 
+    # using dict to make bar chart
     plot_neg = create_bar_chart(data_neg, "Negative customer experience", "Aspect", "Level of experience")
     plot_pos = create_bar_chart(data_pos, "Positive customer experience", "Aspect", "Level of experience")
 
