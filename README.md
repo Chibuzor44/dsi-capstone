@@ -111,3 +111,5 @@ Now that I have models that can extract aspects of a customers dinning experienc
 <figcaption>Figure 6</figcaption>
 </p>
 
+### Tech stacks used<br>
+<img src="images/stack.png" />
