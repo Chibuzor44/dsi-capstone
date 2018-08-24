@@ -70,7 +70,7 @@ class ReviewClassifier:
 
 def main(df, random_state, test_size, first_star, second_star, state = "Given Data"):
     """
-    Runs the complete cycle of and builds a model. Takes a dataframe, 
+    Runs the complete cycle and builds a model. Takes a dataframe, 
     tokenizes, clean, vectorize and return model
     :param df: Pandas dataframe
     :param random_state: int
