@@ -70,7 +70,7 @@ Three sets of data was collected from <a href="https://www.yelp.com/dataset/chal
 
 #### Models
 <p>
-  To answer the questions posed in the overview, I used Logistic Regression to model the data by 1-star vs all and 5-star vs all to classify the reviews to asociated ratings.
+  To answer the questions posed in the overview, I used Logistic Regression to model the data by 1-star vs all and 5-star vs all to classify the reviews to asociated ratings. The code for building and evaluating the model can be found in <a href="sk_model.py">sk_model.py</a> scripts
   <ul>
   <li>Model_12: 1-star rating vs 2-star rating</li>
   <li>Model_13: 1-star rating vs 3-star rating</li>
