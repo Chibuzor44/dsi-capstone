@@ -2,7 +2,6 @@
 
 ##### Galvanize Data Science Immersive Capstone <br>
 See a video summary <a href="https://youtu.be/goJHM3iHmCA">here</a>
-
 <br>
 
 ### Motivation
