@@ -57,15 +57,16 @@ def predict():
                     lst_pos = display(models, df, star1, star2, state=state, bus_name=bus_name)
 
     # creating a list of count of words describing each aspect
-    asp_lst = list(df_neg["Aspect"])
+    neg_asp_lst = list(df_neg["Aspect"])
+    pos_asp_lst = list(df_pos["Aspect"])
     neg_words, pos_words = [],[]
     for neg, pos in zip(df_neg["Level of experience"],df_pos["Level of experience"]):
         neg_words.append(neg)
         pos_words.append(pos)
 
     # using created list to make a dict of aspects
-    data_neg = {"Aspect": asp_lst, "Level of experience": neg_words}
-    data_pos = {"Aspect": asp_lst, "Level of experience": pos_words}
+    data_neg = {"Aspect": neg_asp_lst, "Level of experience": neg_words}
+    data_pos = {"Aspect": pos_asp_lst, "Level of experience": pos_words}
 
     # using dict to make bar chart
     plot_neg = create_bar_chart(data_neg, "Negative customer experience", "Aspect", "Level of experience")
@@ -74,18 +75,18 @@ def predict():
     script_neg, div_neg = components(plot_neg)
     script_pos, div_pos = components(plot_pos)
     if len(lst_pos) >= 4 and len(lst_neg) >= 4:
-        neg_asp1, neg_asp2,neg_asp3,neg_asp4 = lst_neg[0][0], lst_neg[1][0], lst_neg[2][0], lst_neg[3][0]
-        neg_desc1, neg_desc2, neg_desc3, neg_desc4 = sort(lst_neg[0][1]), sort(lst_neg[1][1]), sort(lst_neg[2][1]), sort(lst_neg[3][1])
-        pos_asp1, pos_asp2, pos_asp3, pos_asp4 = lst_pos[0][0], lst_pos[1][0], lst_pos[2][0], lst_pos[3][0]
-        pos_desc1, pos_desc2, pos_desc3, pos_desc4 = sort(lst_pos[0][1]), sort(lst_pos[1][1]), sort(lst_pos[2][1]), sort(lst_pos[3][1])
+        neg_asp1, neg_asp2,neg_asp3,neg_asp4,neg_asp5 = lst_neg[0][0], lst_neg[1][0], lst_neg[2][0], lst_neg[3][0],lst_neg[4][0]
+        neg_desc1, neg_desc2, neg_desc3, neg_desc4, neg_desc5 = sort(lst_neg[0][1]), sort(lst_neg[1][1]), sort(lst_neg[2][1]), sort(lst_neg[3][1]), sort(lst_neg[4][1])
+        pos_asp1, pos_asp2, pos_asp3, pos_asp4,pos_asp5 = lst_pos[0][0], lst_pos[1][0], lst_pos[2][0], lst_pos[3][0],lst_pos[4][0]
+        pos_desc1, pos_desc2, pos_desc3, pos_desc4,pos_desc5 = sort(lst_pos[0][1]), sort(lst_pos[1][1]), sort(lst_pos[2][1]), sort(lst_pos[3][1]),sort(lst_pos[4][1])
     else:
         return render_template("index.html", title="Home")
     return render_template("predict.html", bus_name=bus_name, neg_the_div=div_neg, neg_the_script=script_neg,
                            pos_the_div=div_pos, pos_the_script=script_pos,
-                           neg_asp1=neg_asp1, neg_asp2=neg_asp2, neg_asp3=neg_asp3, neg_asp4=neg_asp4,
-                           neg_desc1=neg_desc1, neg_desc2=neg_desc2, neg_desc3=neg_desc3, neg_desc4=neg_desc4,
-                           pos_asp1=pos_asp1, pos_asp2=pos_asp2, pos_asp3=pos_asp3, pos_asp4=pos_asp4,
-                           pos_desc1=pos_desc1, pos_desc2=pos_desc2, pos_desc3=pos_desc3, pos_desc4=pos_desc4)
+                           neg_asp1=neg_asp1, neg_asp2=neg_asp2, neg_asp3=neg_asp3, neg_asp4=neg_asp4,neg_asp5=neg_asp5,
+                           neg_desc1=neg_desc1, neg_desc2=neg_desc2, neg_desc3=neg_desc3, neg_desc4=neg_desc4,neg_desc5=neg_desc5,
+                           pos_asp1=pos_asp1, pos_asp2=pos_asp2, pos_asp3=pos_asp3, pos_asp4=pos_asp4,pos_asp5=pos_asp5,
+                           pos_desc1=pos_desc1, pos_desc2=pos_desc2, pos_desc3=pos_desc3, pos_desc4=pos_desc4,pos_desc5=pos_desc5)
 
 
 
