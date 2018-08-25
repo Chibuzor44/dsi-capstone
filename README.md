@@ -11,7 +11,7 @@ A study from Cornell University conducted in 2005 <a href="https://www.researchg
 
 ### Overview
 <p>
-The availability of online review web services have made it relatively easy for restaurant patrons to get information about a retaurant before deciding to dinning there. Yelp is a popular review online service for restaurants and other businesses. This presents an opportunity for these restaurants to use these feedbacks to measure their customer satisfaction performance and improve on poorly performed aspects of their services. Most restaurants rely on star ratings to measure customer satisfaction, but star rating does not necessarily reveal the cause of a customer's satisfaction/dissatisfaction. This project focuses on using natural language processing (NLP) to analyze user reviews text to extract aspects of restaurants services that impact its customers.<br>
+The availability of online review web services have made it relatively easy for restaurant patrons to get information about a retaurant before deciding to dine there. Yelp is a popular review online service for restaurants and other businesses. This presents an opportunity for these restaurants to use these feedbacks to measure their customer satisfaction performance and improve on poorly performed aspects of their services. Most restaurants rely on star ratings to measure customer satisfaction, but star rating does not necessarily reveal the cause of a customer's satisfaction/dissatisfaction. This project focuses on using natural language processing (NLP) to analyze user reviews text to extract aspects of restaurants services that impact its customers.<br>
 In other to get anticipated results out of this modelling, it should answer the following questions:
   <ul>
     <li>
